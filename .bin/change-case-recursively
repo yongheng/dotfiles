@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+# http://stackoverflow.com/a/3075668
+
+import argparse
+import os
+
+def rename(oldpath, newpath):
+    try:
+        os.rename(oldpath, newpath)
+    except OSError:
+        pass
+
+def process_batch(root, names, lower):
+    for name in names:
+        if not name.startswith('.'):
+            if lower:
+                newname = name.lower()
+            else:
+                newname = name.upper()
+            oldpath = os.path.join(root, name)
+            newpath = os.path.join(root, newname)
+            rename(oldpath, newpath)
+
+def process_all(dir, lower):
+    for root, dirnames, filenames in os.walk(dir, topdown = False):
+        process_batch(root, filenames, lower)
+        process_batch(root, dirnames, lower)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description = 'Change case of dirnames and filenames recursively')
+    group = parser.add_mutually_exclusive_group(required = True)
+    group.add_argument('-l', '--lower', action = 'store_true',
+        help = 'to lowercase')
+    group.add_argument('-u', '--upper', action = 'store_true',
+        help = 'to uppercase')
+    parser.add_argument('path', help = 'path to the directory to start from')
+    args = parser.parse_args()
+    if args.lower:
+        process_all(args.path, True)
+    else:
+        process_all(args.path, False)

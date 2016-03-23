@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+import imp
+import os
+import sys
+
+dir = os.path.expanduser('~/.markdown')
+
+markdown2 = imp.load_source('markdown2', os.path.join(dir, 'markdown2.py'))
+
+css_path = os.path.expanduser(os.path.join(dir, 'mou-github.css'))
+with open(css_path, 'r') as f:
+    css = f.read()
+
+md_path = sys.argv[1]
+with open(md_path, 'r') as f:
+    md = markdown2.markdown(f.read(), extras = ['tables'])
+
+s = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style type="text/css">
+''' + css + \
+'''</style>
+</head>
+<body>
+''' + md + \
+'''</body>
+</html>
+'''
+
+html_path = os.path.splitext(md_path)[0] + '.html'
+with open(html_path, 'w') as f:
+    f.write(s.encode('utf8'))

@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+import string
+
+table = string.maketrans('', '')
+deletechars = ''.join(map(chr, range(32, 127)) + list('\n\r\t\b'))
+
+def is_text(path):
+    # http://stackoverflow.com/a/1446870
+    with open(path, 'r') as f:
+        s = f.read(512)
+    if not s:
+        return True
+    if '\0' in s:
+        return False
+    if float(len(s.translate(table, deletechars))) / float(len(s)) > .3:
+        return False
+    return True
+
+def is_crlf(path):
+    with open(path, 'rb') as f:
+        return '\r\n' in f.read()
+
+def process(path):
+    if is_text(path) and is_crlf(path):
+        with open(path, 'rU') as f:
+            s = f.read()
+        with open(path, 'wb') as f:
+            f.write(s)
+
+def process_all(dir):
+    for root, dirnames, filenames in os.walk(dir, topdown = False):
+        if '.git' not in os.path.normpath(root).split(os.sep):
+            for filename in filenames:
+                process(os.path.join(root, filename))
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description = 'Normalize line ending recursively')
+    parser.add_argument('path', help = 'path to the directory to start from')
+    args = parser.parse_args()
+    process_all(args.path)

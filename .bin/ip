@@ -1,0 +1,4 @@
+#!/usr/bin/env python
+
+import urllib
+print(urllib.urlopen('http://checkip.amazonaws.com').read().strip())
