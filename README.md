@@ -1,6 +1,6 @@
-# dotfiles
+## dotfiles
 
-## Installation
+### Installation
 
 The installation step may overwrite existing dotfiles in your HOME directory. To install, run the code below in the `dotfiles` directory:
 
@@ -8,7 +8,7 @@ The installation step may overwrite existing dotfiles in your HOME directory. To
 $ source bootstrap.sh
 ```
 
-## Acknowledgements
+### Acknowledgements
 
 Inspiration and code was taken from many sources, including:
 
