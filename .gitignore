@@ -5,6 +5,7 @@ desktop.ini
 
 # Editor
 *~
+.vscode
 
 # C++
 *.o
@@ -14,12 +15,4 @@ desktop.ini
 # Python
 *.pyc
 .ipynb_checkpoints
-
-# R
-.RData
-.Rhistory
-*.Rcheck
-Rprof.out
-.Rapp.history
-*.Rproj
-.Rproj.user
+.pytest_cache

@@ -94,19 +94,22 @@ filetype indent on
 " set EOL format
 set fileformats=unix,dos,mac
 
-" treat .md files as .markdown files
+" prevent from expanding tab
+autocmd FileType make setlocal noexpandtab
+
+" treat .md file as .markdown file
 au BufRead,BufNewFile *.md set filetype=markdown
 
 " convert markdown to HTML
 " nmap <leader>md :%!markdown % <CR>
 
 " remove trailing whitespace on save
-function! RemoveTrailingWhitespace()
-    exe 'normal mz'
-    %s/\s\+$//ge
-    exe 'normal `z'
-endfunction
-autocmd BufWritePre * :call RemoveTrailingWhitespace()
+" function! RemoveTrailingWhitespace()
+"     exe 'normal mz'
+"     %s/\s\+$//ge
+"     exe 'normal `z'
+" endfunction
+" autocmd BufWritePre * :call RemoveTrailingWhitespace()
 
 " save
 nmap <leader>w :w!<CR>
@@ -117,7 +120,7 @@ nmap <leader>q :q<CR>
 " save and exit
 nmap <leader>wq :wq<CR>
 
-" return to last edit position when opening files
+" return to last edit position when opening file
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \     exe "normal! g`\"" |
@@ -136,7 +139,7 @@ map k gk
 " keep cursor away from top and bottom
 set scrolloff=5
 
-" kepp cursor centered after movement
+" keep cursor centered after movement
 nmap G Gzz
 nmap n nzz
 nmap N Nzz
@@ -144,8 +147,6 @@ nmap } }zz
 nmap { {zz
 
 " move between buffers
-map <C-h> :bprevious<CR>
-map <C-l> :bnext<CR>
 map <leader>h :bprevious<CR>
 map <leader>l :bnext<CR>
 
@@ -179,13 +180,19 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap = =gv
 
+" move cursors faster
+nnoremap <C-j> 10j
+nnoremap <C-k> 10k
+nnoremap <C-h> b
+nnoremap <C-l> w
+
 " move lines
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+" nnoremap <C-d>      :m .+1<CR>==
+" nnoremap <C-u>      :m .-2<CR>==
+" inoremap <C-d> <Esc>:m .+1<CR>==gi
+" inoremap <C-u> <Esc>:m .-2<CR>==gi
+" vnoremap <C-d>      :m '>+1<CR>gv=gv
+" vnoremap <C-u>      :m '<-2<CR>gv=gv
 
 " =====================================
 " Search
@@ -232,7 +239,7 @@ set tabstop=4
 
 " space
 set autoindent
-set smartindent
+set cindent
 set wrap
 
 " turn on the wild menu
@@ -279,24 +286,6 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-" =====================================
-" Disable the arrow keys
-
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
-
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-
-vnoremap <Up> <Nop>
-vnoremap <Down> <Nop>
-vnoremap <Left> <Nop>
-vnoremap <Right> <Nop>
-
 " ======================================
 " Vundle
 
@@ -332,7 +321,7 @@ map <C-n> :NERDTreeToggle<CR>
 " let NERDTreeDirArrows = 1
 
 " NERDCommenter
-let NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
 
 " vim-airline
 if os == 'linux'

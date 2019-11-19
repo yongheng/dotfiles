@@ -34,7 +34,7 @@ unset osname
 # =====================================
 # Load
 
-for file in $HOME/.{bash_prompt,bash_paths,bash_aliases,bash_custom}; do
+for file in $HOME/.{bash_environments,bash_prompt,bash_paths,bash_aliases,bash_custom}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
@@ -86,3 +86,6 @@ shopt -s checkwinsize
 # prefer US English and UTF-8
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
+
+# suppress warning in macOS Catalina
+export BASH_SILENCE_DEPRECATION_WARNING=1

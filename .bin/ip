@@ -1,4 +1,5 @@
 #!/usr/bin/env python
 
-import urllib
-print(urllib.urlopen('http://checkip.amazonaws.com').read().strip())
+from urllib.request import urlopen
+
+print(urlopen('http://checkip.amazonaws.com').read().strip().decode('utf-8'))
