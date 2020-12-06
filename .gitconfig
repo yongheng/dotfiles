@@ -13,12 +13,13 @@
 	s = status
 	b = branch
 	d = diff
-	l = log --oneline --graph --decorate
+	l = log
 	c = log --oneline --graph --decorate
 	f = c --name-status
-	lm = l master..
 	cm = c master..
 	fm = f master..
+	cd = c develop..
+	fd = f develop..
 [push]
 	default = current
 [credential]
