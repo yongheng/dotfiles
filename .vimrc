@@ -297,13 +297,11 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " plugins
-Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
-" Plugin 'plasticboy/vim-markdown'
 Plugin 'epeli/slimux'
 
 call vundle#end()
@@ -338,9 +336,6 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " ctrlp.vim
 let g:ctrlp_show_hidden = 1
-
-" vim-markdown
-" let g:vim_markdown_folding_disabled = 1
 
 " Tabular
 nmap <leader>a= :Tabularize /=<CR>

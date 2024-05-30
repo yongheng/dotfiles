@@ -14,13 +14,13 @@
 	b = branch
 	d = diff
 	l = log
-	c = log --oneline --graph --decorate
+	c = log --pretty=format:'%C(auto)%h%d %C(yellow)(%cr) %C(cyan)%an %C(auto)%s' --graph
 	f = c --name-status
 	cm = c master..
 	fm = f master..
-	cd = c develop..
-	fd = f develop..
+[pull]
+	default = current
 [push]
 	default = current
 [credential]
-	helper = cache --timeout=7200
+	helper = osxkeychain
